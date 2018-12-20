@@ -39,7 +39,7 @@ public class CreditCard {
 	}
 
 	public void showInfo() {
-		System.out.println("account: " + accountNumber + " have: " + amount + "$");
+		System.out.println("account: " + accountNumber + " has: " + amount + "$");
 	}
 
 }
