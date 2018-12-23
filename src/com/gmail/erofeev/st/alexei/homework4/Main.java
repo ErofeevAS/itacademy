@@ -17,8 +17,9 @@ public class Main {
 		arrayThree[7] = arrayTwo[3];
 
 		int year = 1700;
-		System.out.println(getTrueDaysInYear(year));
-		System.out.println(getDaysInYear(year));
+		System.out.println("in " + year + " year was " + getTrueDaysInYear(year) + " days by wiki");
+		System.out.println("in " + year + " year was " + getDaysInYear(year) + " days by homework");
+		
 		showTimeOfTheYear(1);
 		showTimeOfTheYear(2);
 		showTimeOfTheYear(3);
