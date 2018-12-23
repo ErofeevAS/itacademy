@@ -23,7 +23,6 @@ public class ConsoleManager {
 
 	public void showEvenNumbers() {
 		int evenNumbersCounter = 0;
-
 		System.out.println("Enter array size:");
 		int sizeOfArray = scaner.nextInt();
 		int[] arrayOfRandomNumbers = new int[sizeOfArray];
@@ -48,5 +47,4 @@ public class ConsoleManager {
 		int n = scaner.nextInt();
 		System.out.print(random.nextInt(2 * n + 1) - n + " ");
 	}
-
 }
