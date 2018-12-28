@@ -5,7 +5,6 @@ public class ArrayService {
 	private int newRange;
 	private int[] firstArray;
 	private int[] secondArray;
-	private int[] tempArray;
 
 	private int[] filterArrayAndAddToSecondArray(int[] array) {
 		int counter = 0;
@@ -15,7 +14,7 @@ public class ArrayService {
 			}
 		}
 		counter += secondArray.length;
-		tempArray = new int[counter];
+		int[] tempArray = new int[counter];
 		for (int i = 0; i < secondArray.length; i++) {
 			tempArray[i] = secondArray[i];
 		}
@@ -26,7 +25,8 @@ public class ArrayService {
 				counter++;
 			}
 		}
-		return tempArray;
+		secondArray = tempArray;
+		return secondArray;
 	}
 
 	private boolean isElementInNewRange(int element) {
@@ -37,9 +37,9 @@ public class ArrayService {
 	}
 
 	private void initArrays() {
-		System.out.println("First array");
+		System.out.println("creating first array");
 		firstArray = consoleService.generateRandomArry();
-		System.out.println("Second array");
+		System.out.println("creating second array");
 		secondArray = consoleService.generateRandomArry();
 	}
 
@@ -47,10 +47,7 @@ public class ArrayService {
 		initArrays();
 		System.out.println("Enter new range:");
 		newRange = consoleService.getNumberFromConsole();
-		System.out.println("Copy elements from first to second array");
 		filterArrayAndAddToSecondArray(firstArray);
-//		showArrays();
-//		secondArray = tempArray;
 	}
 
 	public void showArrays() {
@@ -59,10 +56,6 @@ public class ArrayService {
 		}
 		System.out.println();
 		for (int element : secondArray) {
-			System.out.print(element + " ");
-		}
-		System.out.println();
-		for (int element : tempArray) {
 			System.out.print(element + " ");
 		}
 		System.out.println();
