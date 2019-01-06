@@ -36,7 +36,7 @@ public class Runner {
 				System.out.println(counterNotCatsDogs);
 				break;
 			} else {
-				if (line.contains("cat") || (line.contains("dog"))) {
+				if (line.indexOf("cat") >= 0 || (line.indexOf("dog") >= 0)) {
 					System.out.println(line);
 					System.out.print("String length: ");
 					System.out.println(line.length());
@@ -67,11 +67,11 @@ public class Runner {
 				indexOfThirdQuestion = i;
 			}
 		}
-		String s1 = str.substring(0, indexOfSecondQuestion);
-		String s2 = str.substring(indexOfSecondQuestion, indexOfThirdQuestion);
-		String s3 = str.substring(indexOfThirdQuestion, str.length());
-		s2 = s2.replaceAll(" ", "");
-		System.out.println(s1 + s2 + s3);
+		String str1 = str.substring(0, indexOfSecondQuestion);
+		String str2 = str.substring(indexOfSecondQuestion, indexOfThirdQuestion);
+		String str3 = str.substring(indexOfThirdQuestion, str.length());
+		str2 = str2.replaceAll(" ", "");
+		System.out.println(str1.concat(str2).concat(str3));
 
 	}
 
