@@ -1,7 +1,6 @@
-package com.gmail.erofeev.st.alexei.homework10;
+package com.gmail.erofeev.st.alexei.homework10.model;
 
 public class Person {
-	final static int ADULT_AGE = 18;
 
 	private String name;
 	private String surName;
@@ -39,11 +38,7 @@ public class Person {
 
 	@Override
 	public String toString() {
-		if (this.age >= ADULT_AGE) {
-			return "Adult: " + name + " " + surName + " " + age;
-		} else {
-			return "Infant: " + name + " " + surName + " " + age;
-		}
+		return " " + name + " " + surName + " " + age;
 	}
 
 }
