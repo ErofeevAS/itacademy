@@ -12,7 +12,11 @@ public class ConsoleService {
 		while (true) {
 			if (scanner.hasNextInt()) {
 				number = scanner.nextInt();
-				break;
+				if (number > 0) {
+					break;
+				} else {
+					System.out.println("Plz enter not negative number");
+				}
 			}
 			scanner.nextLine();
 			System.out.println("Plz enter integer value!!");

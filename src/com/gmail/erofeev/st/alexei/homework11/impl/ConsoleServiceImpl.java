@@ -27,7 +27,6 @@ public class ConsoleServiceImpl implements IConsoleService {
 			} else {
 				lines.add(line);
 			}
-
 		}
 		return lines;
 	}

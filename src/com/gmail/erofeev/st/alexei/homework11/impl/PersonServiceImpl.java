@@ -48,10 +48,8 @@ public class PersonServiceImpl implements IPersonService {
 					System.out.println(person);
 					iterator.remove();
 				}
-
 			}
 		}
-
 	}
 
 }
