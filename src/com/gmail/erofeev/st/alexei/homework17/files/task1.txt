@@ -1,0 +1,11 @@
+С:\WebServers\home\testsite\www\myfile1.txt
+С:\WebServers\home\testsite\www\myfile2.pdf
+С:\WebServers\home\testsite\www\myfile3.txt
+С:\WebServers\home\testsite\www\myfile4.txt
+С:\WebServers\home\testsite\www\myfile5.pdf
+С:\WebServers\home\testsite\www\myfile6.txt
+С:\WebServers\home\testsite\www\myfile7
+С:\WebServers\home\testsite\www\myfile8
+С:\WebServers\home\testsite\www\myfile9
+С:\WebServers\home\testsite\www\myfile10.txt
+
