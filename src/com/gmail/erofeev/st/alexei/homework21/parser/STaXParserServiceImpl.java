@@ -46,13 +46,13 @@ public class STaXParserServiceImpl implements ParserService {
                         String name = startElement.getName().getLocalPart();
 
                         if (name.equalsIgnoreCase("book")) {
-                            isBook = true;
-                        } else if (name.equalsIgnoreCase("author")) {
                             Iterator<Attribute> attributes = startElement.getAttributes();
                             Attribute nextAttribute = attributes.next();
-                            if (nextAttribute.getName().equals("id")) {
+                            if (nextAttribute.getName().getLocalPart().equals("id")) {
                                 id = nextAttribute.getValue();
                             }
+                            isBook = true;
+                        } else if (name.equalsIgnoreCase("author")) {
                             isAuthor = true;
                         } else if (name.equalsIgnoreCase("title")) {
                             isTitle = true;
@@ -67,11 +67,9 @@ public class STaXParserServiceImpl implements ParserService {
                         }
                         break;
                     }
-
                     case XMLStreamConstants.CHARACTERS: {
                         Characters characters = event.asCharacters();
                         if (isBook) {
-//                            info = characters.getData();
                             isBook = false;
                         }
                         if (isAuthor) {
@@ -100,7 +98,6 @@ public class STaXParserServiceImpl implements ParserService {
                         }
                         break;
                     }
-
                     case XMLStreamConstants.END_ELEMENT: {
                         EndElement endElement = event.asEndElement();
                         if (endElement.getName().getLocalPart().equalsIgnoreCase("book")) {
@@ -112,12 +109,8 @@ public class STaXParserServiceImpl implements ParserService {
                         }
                         break;
                     }
-
                 }
-
-
             }
-
         } catch (
                 FileNotFoundException e) {
             e.printStackTrace();

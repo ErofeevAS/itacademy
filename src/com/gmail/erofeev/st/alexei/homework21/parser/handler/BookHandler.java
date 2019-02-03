@@ -28,6 +28,9 @@ public class BookHandler extends DefaultHandler {
     private String description = "";
     private List<Book> books = new ArrayList<>();
 
+    public List<Book> getBooks() {
+        return books;
+    }
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -49,8 +52,8 @@ public class BookHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName.equalsIgnoreCase("catalog")) {
-            bookService.showBooksInfo(books);
-            System.out.println("SAX Average = " + bookService.getAveragePriceForBook(books));
+           // bookService.showBooksInfo(books);
+           // System.out.println("SAX Average = " + bookService.getAveragePriceForBook(books));
         }
         if (qName.equalsIgnoreCase("book")) {
             Book book = Book.newBuilder().id(id).
