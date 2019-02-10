@@ -1,13 +1,12 @@
 package com.gmail.erofeev.st.alexei.controlwork2.app;
 
-import com.gmail.erofeev.st.alexei.controlwork2.ArrayService;
-import com.gmail.erofeev.st.alexei.controlwork2.ConsoleService;
-import com.gmail.erofeev.st.alexei.controlwork2.FileService;
-import com.gmail.erofeev.st.alexei.controlwork2.ThreadService;
+import com.gmail.erofeev.st.alexei.controlwork2.*;
+import com.gmail.erofeev.st.alexei.controlwork2.enums.XMLParserEnum;
 import com.gmail.erofeev.st.alexei.controlwork2.impl.ArrayServiceImpl;
 import com.gmail.erofeev.st.alexei.controlwork2.impl.ConsoleServiceImpl;
 import com.gmail.erofeev.st.alexei.controlwork2.impl.FileServiceImpl;
 import com.gmail.erofeev.st.alexei.controlwork2.impl.ThreadServiceImpl;
+import com.gmail.erofeev.st.alexei.controlwork2.parser.XMLParserFactory;
 import com.gmail.erofeev.st.alexei.controlwork2.thread.TaskTwoReaderThread;
 import com.gmail.erofeev.st.alexei.controlwork2.thread.TaskTwoWriterThread;
 
@@ -51,6 +50,15 @@ public class Runner {
         System.out.println("max "+future.get());
       //  System.out.println(future.get());
 
+        //task3
+        XMLParserFactory factory = new XMLParserFactory();
+        XMLParser domParser = factory.getXMLParser(XMLParserEnum.DOM);
+        File file = new File("shiporder.xml");
+        domParser.showTitleAndPriceForItem(file);
+        XMLParser staxParser = factory.getXMLParser(XMLParserEnum.STAX);
+        staxParser.showTitleAndPriceForItem(file);
+        XMLParser saxParser = factory.getXMLParser(XMLParserEnum.SAX);
+        saxParser.showTitleAndPriceForItem(file);
 
     }
 }

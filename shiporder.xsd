@@ -1,0 +1,35 @@
+<?xml version ="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.it-academy.by"
+           xmlns="http://www.it-academy.by"
+           elementFormDefault="qualified">
+    <xs:element name="shiporder" type="shiporder"/>
+
+    <xs:complexType name="shiporder">
+        <xs:sequence>
+            <xs:element name="orderperson" type="xs:string"/>
+            <xs:element name="shipto" type="shipto"/>
+            <xs:element name="item" type="item" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="orderid" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="shipto">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="address" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="country" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="item">
+        <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="note" type="xs:string"/>
+            <xs:element name="quantity" type="xs:int"/>
+            <xs:element name="price" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
