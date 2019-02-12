@@ -35,6 +35,11 @@ public class RandomServiceImpl implements RandomService {
         return randomList;
     }
 
+    @Override
+    public int getRandomInt(int rangeStart, int rangeStop) {
+        return getRandom(rangeStart, rangeStop);
+    }
+
     private int getRandom(int start, int stop) {
         return random.nextInt(stop - start) + start;
     }

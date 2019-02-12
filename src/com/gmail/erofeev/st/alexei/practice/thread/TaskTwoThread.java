@@ -2,8 +2,9 @@ package com.gmail.erofeev.st.alexei.practice.thread;
 
 import com.gmail.erofeev.st.alexei.practice.app.Runner;
 
-public class TaskTwoThread implements Runnable {
+import java.util.Random;
 
+public class TaskTwoThread implements Runnable {
     private final String massege;
 
     public TaskTwoThread(String massege) {
@@ -17,7 +18,7 @@ public class TaskTwoThread implements Runnable {
             if (Runner.THREAD_COUNTER != 50) {
                 Runner.THREAD_COUNTER++;
                 thread = new Thread(new TaskTwoThread(massege));
-                thread.setName("THREAD " + Runner.THREAD_COUNTER);
+                thread.setName("Thread-" + Runner.THREAD_COUNTER);
                 thread.start();
                 try {
                     massege.wait();

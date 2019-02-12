@@ -6,4 +6,6 @@ public interface RandomService {
 
     List<Integer> getRandomArray(int size, int rangeStart, int rangeStop);
 
+    int getRandomInt(int rangeStart, int rangeStop);
+
 }
