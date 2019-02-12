@@ -27,7 +27,12 @@ public class STAXXMLParserImpl implements XMLParser {
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
                 switch (event.getEventType()) {
+                    case XMLStreamConstants.START_DOCUMENT: {
+                        System.out.println("STAX PARSER:");
+                    }
+                    break;
                     case XMLStreamConstants.START_ELEMENT: {
+
                         StartElement startElement = event.asStartElement();
                         String name = startElement.getName().getLocalPart();
 
@@ -59,7 +64,6 @@ public class STAXXMLParserImpl implements XMLParser {
                     case XMLStreamConstants.END_ELEMENT: {
                         EndElement endElement = event.asEndElement();
                         if (endElement.getName().getLocalPart().equalsIgnoreCase("item")) {
-                            System.out.println("STAX PARSER:");
                             System.out.println(title + "price: " + price);
                         }
                         break;

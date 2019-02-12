@@ -13,6 +13,8 @@ public class XMLParserFactory {
                 return new STAXXMLParserImpl();
             case SAX:
                 return new SAXXMLParserImpl();
+            case JAXB:
+                return new JAXBXMLParserImpl();
             default:
                 throw new IllegalArgumentException("WRONG TYPE");
         }

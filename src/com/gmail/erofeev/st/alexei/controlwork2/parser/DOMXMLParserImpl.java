@@ -18,6 +18,7 @@ public class DOMXMLParserImpl implements XMLParser {
     public void showTitleAndPriceForItem(File file) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
+            System.out.println("DOM parser:");
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse(file);
             Element root = doc.getDocumentElement();

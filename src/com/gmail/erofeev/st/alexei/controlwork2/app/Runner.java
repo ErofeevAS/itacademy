@@ -21,12 +21,12 @@ public class Runner {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         //task1
-//        ConsoleService console = new ConsoleServiceImpl();
-//        int n = console.getInt("Enter amount of thread:");
-//
-//        ThreadService threadService = ThreadServiceImpl.getInstance();
-//        File file = new File("task1.txt");
-//        threadService.startThreads(n, file);
+        ConsoleService console = new ConsoleServiceImpl();
+        int n = console.getInt("Enter amount of thread:");
+
+        ThreadService threadService = ThreadServiceImpl.getInstance();
+        File file = new File("task1.txt");
+        threadService.startThreads(n, file);
 
         //task2
         File task2 = new File("task2.txt");
@@ -44,21 +44,23 @@ public class Runner {
         executorService.shutdown();
 
 
-        while(!future.isDone()){
+        while (!future.isDone()) {
 
         }
-        System.out.println("max "+future.get());
-      //  System.out.println(future.get());
+        System.out.println("max " + future.get());
+          System.out.println(future.get());
 
         //task3
         XMLParserFactory factory = new XMLParserFactory();
         XMLParser domParser = factory.getXMLParser(XMLParserEnum.DOM);
-        File file = new File("shiporder.xml");
+        file = new File("shiporder.xml");
         domParser.showTitleAndPriceForItem(file);
         XMLParser staxParser = factory.getXMLParser(XMLParserEnum.STAX);
         staxParser.showTitleAndPriceForItem(file);
         XMLParser saxParser = factory.getXMLParser(XMLParserEnum.SAX);
         saxParser.showTitleAndPriceForItem(file);
+        XMLParser jaxbParser = factory.getXMLParser(XMLParserEnum.JAXB);
+        jaxbParser.showTitleAndPriceForItem(file);
 
     }
 }

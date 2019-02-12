@@ -16,6 +16,12 @@ public class ItemHandler extends DefaultHandler {
     private String price;
 
     @Override
+    public void startDocument() throws SAXException {
+        super.startDocument();
+        System.out.println("SAX parser:");
+    }
+
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         if (qName.equalsIgnoreCase("item")) {
             isItem = true;
@@ -30,7 +36,6 @@ public class ItemHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
 
         if (qName.equalsIgnoreCase("item")) {
-            System.out.println("SAX parser:");
             System.out.println(title + "price: " + price);
         }
     }
