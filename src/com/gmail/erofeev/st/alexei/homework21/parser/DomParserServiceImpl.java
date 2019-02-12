@@ -2,6 +2,7 @@ package com.gmail.erofeev.st.alexei.homework21.parser;
 
 import com.gmail.erofeev.st.alexei.homework21.ParserService;
 import com.gmail.erofeev.st.alexei.homework21.model.Book;
+import com.gmail.erofeev.st.alexei.homework21.util.XMLValidatorUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,46 +20,50 @@ import java.util.List;
 public class DomParserServiceImpl implements ParserService {
 
     @Override
-    public List<Book> getBooks(File file) {
-        List<Book> books = new ArrayList<>();
-
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-            Document doc = documentBuilder.parse(file);
-            Element root = doc.getDocumentElement();
-            root.normalize();
-            NodeList list = root.getChildNodes();
-            for (int i = 0; i < list.getLength(); i++) {
-                Node node = list.item(i);
-                if (node.getNodeType() == Node.ELEMENT_NODE) {
-                    if (node.getNodeName().equalsIgnoreCase("book")) {
-                        Element element = (Element) node;
-                        String id = element.getAttribute("id");
-                        String author = element.getElementsByTagName("author").item(0).getTextContent();
-                        String title = element.getElementsByTagName("title").item(0).getTextContent();
-                        String genre = element.getElementsByTagName("genre").item(0).getTextContent();
-                        Float price = Float.parseFloat(element.getElementsByTagName("price").item(0).getTextContent());
-                        String publishDate = element.getElementsByTagName("publish_date").item(0).getTextContent();
-                        String description = element.getElementsByTagName("description").item(0).getTextContent();
-                        Book book = Book.newBuilder().id(id).
-                                author(author).title(title).
-                                genre(genre).price(price).
-                                date(publishDate).description(description).build();
-                        books.add(book);
+    public List<Book> getBooks(File file, File xsd) {
+        List<Book> books = null;
+        if (XMLValidatorUtil.validateAgainstXSD(file, xsd)) {
+            System.out.println(file + " is valid");
+            try {
+                books = new ArrayList<>();
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = factory.newDocumentBuilder();
+                Document doc = documentBuilder.parse(file);
+                Element root = doc.getDocumentElement();
+                root.normalize();
+                NodeList list = root.getChildNodes();
+                for (int i = 0; i < list.getLength(); i++) {
+                    Node node = list.item(i);
+                    if (node.getNodeType() == Node.ELEMENT_NODE) {
+                        if (node.getNodeName().equalsIgnoreCase("book")) {
+                            Element element = (Element) node;
+                            String id = element.getAttribute("id");
+                            String author = element.getElementsByTagName("author").item(0).getTextContent();
+                            String title = element.getElementsByTagName("title").item(0).getTextContent();
+                            String genre = element.getElementsByTagName("genre").item(0).getTextContent();
+                            Float price = Float.parseFloat(element.getElementsByTagName("price").item(0).getTextContent());
+                            String publishDate = element.getElementsByTagName("publish_date").item(0).getTextContent();
+                            String description = element.getElementsByTagName("description").item(0).getTextContent();
+                            Book book = Book.newBuilder().id(id).
+                                    author(author).title(title).
+                                    genre(genre).price(price).
+                                    date(publishDate).description(description).build();
+                            books.add(book);
+                        }
                     }
                 }
+
+
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            System.out.println(file + " not match with xsd: " + xsd);
         }
-
         return books;
     }
 

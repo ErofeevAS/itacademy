@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ParserService {
 
-    List<Book> getBooks(File file);
+    List<Book> getBooks(File file, File xsd);
+
 
 }

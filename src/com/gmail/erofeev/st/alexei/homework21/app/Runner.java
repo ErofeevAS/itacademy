@@ -26,26 +26,27 @@ public class Runner {
 
         BookService bookService = BookServiceImpl.getInstance();
         File file = new File("src/com/gmail/erofeev/st/alexei/homework21/catalog.xml");
+        File xsd = new File("src/com/gmail/erofeev/st/alexei/homework21/catalog.xsd");
         XMLParserFactory xmlParserFactory = new XMLParserFactoryImpl();
 
         //DOM
         System.out.println("--------DOM-------");
         ParserService domParserService = xmlParserFactory.getXMLParser(XMLParser.DOM);
-        List<Book> catalog = domParserService.getBooks(file);
+        List<Book> catalog = domParserService.getBooks(file,xsd);
         bookService.showBooksInfo(catalog);
         System.out.println("Average = " + bookService.getAveragePriceForBook(catalog));
 
         //STaX
         System.out.println("--------STaX-------");
         ParserService staxParserService = xmlParserFactory.getXMLParser(XMLParser.STAX);
-        catalog = staxParserService.getBooks(file);
+        catalog = staxParserService.getBooks(file,xsd);
         bookService.showBooksInfo(catalog);
         System.out.println("Average = " + bookService.getAveragePriceForBook(catalog));
 
         //SAX
         System.out.println("--------SAX-------");
         ParserService saxParserService = xmlParserFactory.getXMLParser(XMLParser.SAX);
-        catalog = saxParserService.getBooks(file);
+        catalog = saxParserService.getBooks(file,xsd);
         bookService.showBooksInfo(catalog);
         System.out.println("Average = " + bookService.getAveragePriceForBook(catalog));
 

@@ -2,6 +2,7 @@ package com.gmail.erofeev.st.alexei.homework21.parser;
 
 import com.gmail.erofeev.st.alexei.homework21.ParserService;
 import com.gmail.erofeev.st.alexei.homework21.model.Book;
+import com.gmail.erofeev.st.alexei.homework21.util.XMLValidatorUtil;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -25,98 +26,107 @@ public class STaXParserServiceImpl implements ParserService {
     boolean isDescription = false;
 
     @Override
-    public List<Book> getBooks(File file) {
-        List<Book> books = new ArrayList<>();
-        try {
-            XMLInputFactory factory = XMLInputFactory.newFactory();
-            XMLEventReader eventReader = factory.createXMLEventReader(new FileReader(file));
-            String id = "";
-            String author = "";
-            String title = "";
-            String genre = "";
-            Float price = 0f;
-            String publishDate = "";
-            String description = "";
+    public List<Book> getBooks(File file, File xsd) {
+        List<Book> books = null;
+        if (XMLValidatorUtil.validateAgainstXSD(file, xsd)) {
+            System.out.println(file.getName() + " is valid");
+            books = new ArrayList<>();
+            try {
+                XMLInputFactory factory = XMLInputFactory.newFactory();
+                XMLEventReader eventReader = factory.createXMLEventReader(new FileReader(file));
+                String id = "";
+                String author = "";
+                String title = "";
+                String genre = "";
+                Float price = 0f;
+                String publishDate = "";
+                String description = "";
 
-            while (eventReader.hasNext()) {
-                XMLEvent event = eventReader.nextEvent();
-                switch (event.getEventType()) {
-                    case XMLStreamConstants.START_ELEMENT: {
-                        StartElement startElement = event.asStartElement();
-                        String name = startElement.getName().getLocalPart();
+                while (eventReader.hasNext()) {
+                    XMLEvent event = eventReader.nextEvent();
+                    switch (event.getEventType()) {
+                        case XMLStreamConstants.START_ELEMENT: {
+                            StartElement startElement = event.asStartElement();
+                            String name = startElement.getName().getLocalPart();
 
-                        if (name.equalsIgnoreCase("book")) {
-                            Iterator<Attribute> attributes = startElement.getAttributes();
-                            Attribute nextAttribute = attributes.next();
-                            if (nextAttribute.getName().getLocalPart().equals("id")) {
-                                id = nextAttribute.getValue();
+                            if (name.equalsIgnoreCase("book")) {
+                                Iterator<Attribute> attributes = startElement.getAttributes();
+                                Attribute nextAttribute = attributes.next();
+                                if (nextAttribute.getName().getLocalPart().equals("id")) {
+                                    id = nextAttribute.getValue();
+                                }
+                                isBook = true;
+                            } else if (name.equalsIgnoreCase("author")) {
+                                isAuthor = true;
+                            } else if (name.equalsIgnoreCase("title")) {
+                                isTitle = true;
+                            } else if (name.equalsIgnoreCase("genre")) {
+                                isGenre = true;
+                            } else if (name.equalsIgnoreCase("price")) {
+                                isPrice = true;
+                            } else if (name.equalsIgnoreCase("publish_date")) {
+                                isPublishDate = true;
+                            } else if (name.equalsIgnoreCase("description")) {
+                                isDescription = true;
                             }
-                            isBook = true;
-                        } else if (name.equalsIgnoreCase("author")) {
-                            isAuthor = true;
-                        } else if (name.equalsIgnoreCase("title")) {
-                            isTitle = true;
-                        } else if (name.equalsIgnoreCase("genre")) {
-                            isGenre = true;
-                        } else if (name.equalsIgnoreCase("price")) {
-                            isPrice = true;
-                        } else if (name.equalsIgnoreCase("publish_date")) {
-                            isPublishDate = true;
-                        } else if (name.equalsIgnoreCase("description")) {
-                            isDescription = true;
+                            break;
                         }
-                        break;
-                    }
-                    case XMLStreamConstants.CHARACTERS: {
-                        Characters characters = event.asCharacters();
-                        if (isBook) {
-                            isBook = false;
+                        case XMLStreamConstants.CHARACTERS: {
+                            Characters characters = event.asCharacters();
+                            if (isBook) {
+                                isBook = false;
+                            }
+                            if (isAuthor) {
+                                author = characters.getData();
+                                isAuthor = false;
+                            }
+                            if (isTitle) {
+                                title = characters.getData();
+                                isTitle = false;
+                            }
+                            if (isGenre) {
+                                genre = characters.getData();
+                                isGenre = false;
+                            }
+                            if (isPrice) {
+                                price = Float.parseFloat(characters.getData());
+                                isPrice = false;
+                            }
+                            if (isPublishDate) {
+                                publishDate = characters.getData();
+                                isPublishDate = false;
+                            }
+                            if (isDescription) {
+                                description = characters.getData();
+                                isDescription = false;
+                            }
+                            break;
                         }
-                        if (isAuthor) {
-                            author = characters.getData();
-                            isAuthor = false;
+                        case XMLStreamConstants.END_ELEMENT: {
+                            EndElement endElement = event.asEndElement();
+                            if (endElement.getName().getLocalPart().equalsIgnoreCase("book")) {
+                                Book book = Book.newBuilder().id(id).
+                                        author(author).title(title).
+                                        genre(genre).price(price).
+                                        date(publishDate).description(description).build();
+                                books.add(book);
+                            }
+                            break;
                         }
-                        if (isTitle) {
-                            title = characters.getData();
-                            isTitle = false;
+                        default: {
+                            System.out.println(event.getEventType());
                         }
-                        if (isGenre) {
-                            genre = characters.getData();
-                            isGenre = false;
-                        }
-                        if (isPrice) {
-                            price = Float.parseFloat(characters.getData());
-                            isPrice = false;
-                        }
-                        if (isPublishDate) {
-                            publishDate = characters.getData();
-                            isPublishDate = false;
-                        }
-                        if (isDescription) {
-                            description = characters.getData();
-                            isDescription = false;
-                        }
-                        break;
-                    }
-                    case XMLStreamConstants.END_ELEMENT: {
-                        EndElement endElement = event.asEndElement();
-                        if (endElement.getName().getLocalPart().equalsIgnoreCase("book")) {
-                            Book book = Book.newBuilder().id(id).
-                                    author(author).title(title).
-                                    genre(genre).price(price).
-                                    date(publishDate).description(description).build();
-                            books.add(book);
-                        }
-                        break;
                     }
                 }
+            } catch (
+                    FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (
+                    XMLStreamException e) {
+                e.printStackTrace();
             }
-        } catch (
-                FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (
-                XMLStreamException e) {
-            e.printStackTrace();
+        } else {
+            System.out.println(file + " not match with xsd: " + xsd);
         }
         return books;
     }
