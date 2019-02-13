@@ -8,15 +8,14 @@ public class IntegerDeque {
     private Deque<Integer> deque = new ArrayDeque<>(SIZE);
 
     public boolean addElement(Integer number) {
-        boolean isSuccessful = false;
         synchronized (deque) {
+            boolean isSuccessful = false;
             if (deque.size() < SIZE) {
                 deque.push(number);
                 System.out.println(number + " was added to deque");
                 isSuccessful = true;
             } else {
                 System.out.println("deque is full. plz wait");
-                isSuccessful = false;
             }
             deque.notify();
             return isSuccessful;
@@ -24,8 +23,8 @@ public class IntegerDeque {
     }
 
     public Integer getElement() {
-        Integer element = null;
         synchronized (deque) {
+            Integer element = null;
             if (deque.size() != 0) {
                 element = deque.pollLast();
             } else {
