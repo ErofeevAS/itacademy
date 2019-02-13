@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-<shiporder orderid="889923" xmlns="http://www.it-academy.by"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://www.it-academy.by shiporder.xsd">
+<shiporder orderid="889923"
+           xmlns="http://www.it-academy.by"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.it-academy.by shiporder.xsd">
 
     <orderperson>John Smith</orderperson>
     <shipto>

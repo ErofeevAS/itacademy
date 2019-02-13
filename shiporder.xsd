@@ -9,7 +9,7 @@
         <xs:sequence>
             <xs:element name="orderperson" type="xs:string"/>
             <xs:element name="shipto" type="shipto"/>
-            <xs:element name="item" type="item" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="item" type="item" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="orderid" type="xs:string"/>
     </xs:complexType>
