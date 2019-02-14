@@ -16,8 +16,8 @@ public class JAXBXMLParserImpl implements ParserService {
 
     @Override
     public String parse(File xml, File xsd) {
-        JAXBContext jaxbContext = null;
-        String response = "";
+        JAXBContext jaxbContext;
+        StringBuilder response = new StringBuilder("{");
         int totalPrice = 0;
 
         try {
@@ -27,16 +27,16 @@ public class JAXBXMLParserImpl implements ParserService {
             List<Item> items = purchaseOrder.getItem();
             System.out.println("JAXB PARSER:");
             for (Item item : items) {
-                response = item.getProductName() + "-" + item.getUsPrice();
-
+                response.append(item.getProductName()).append("-").append(item.getUsPrice()).append(",");
+                totalPrice += item.getUsPrice();
             }
-            response += response + ":" + totalPrice;
-
 
         } catch (JAXBException e) {
+            e.getMessage();
             e.printStackTrace();
         }
-        return response;
+        response.substring(0, response.length() - 1);
+        return response + ":totalprice is " + totalPrice + "}";
 
     }
 
