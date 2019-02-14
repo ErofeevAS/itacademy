@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<PurchaseOrder OrderDate="1999-10-20"
+               xmlns="http://www.it-academy.by"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.it-academy.by PurchaseOrder.xsd">
+    <item PartNumber = "872-AA">
+        <ProductName>Lawnmower</ProductName>
+        <Quantity>1</Quantity>
+        <USPrice>148</USPrice>
+        <Comment>Confirm this is electric</Comment>
+    </item>
+    <item PartNumber = "926-AA">
+        <ProductName>Baby monitor</ProductName>
+        <Quantity>2</Quantity>
+        <USPrice>39.9</USPrice>
+        <ShipDate>1999-05-21</ShipDate>
+    </item>
+
+</PurchaseOrder>
